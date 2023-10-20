@@ -1,4 +1,4 @@
-Tech Challenge FIAP - 4SOAT
+4SOAT
 RM350887
 
 # Tech Challenge FIAP Fase 1
