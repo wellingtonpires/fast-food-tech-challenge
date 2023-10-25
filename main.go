@@ -1,21 +1,14 @@
 package main
 
 import(
-	"net/http"
     "github.com/gin-gonic/gin"
-    "github.com/wellingtonpires/fast-food-tech-challenge/aggregates"
+    "github.com/wellingtonpires/fast-food-tech-challenge/interface/entrega_handler"
+    "github.com/wellingtonpires/fast-food-tech-challenge/interface/identificacao_handler"
 )
-
-type pedido struct {
-    Numero     string  `json:"numero"`
-    NomeCliente  string  `json:nomeCliente`
-    Lanche string  `json:lanche`
-    Acompanhamento  string `json:"acompanhamento"`
-	Bebida  string `json:"bebida"`
-}
 
 func main() {
     router := gin.Default()
-    router.GET("/pedidos", aggregates.listaPedidos)
-    router.Run("localhost:8080")
+    entrega_handler.Routes(router)
+    identificacao_handler.Routes(router)
+    router.Run()
 }
