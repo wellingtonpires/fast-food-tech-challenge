@@ -41,7 +41,7 @@ func BuscaPedidos() (pedidos []pedido.Pedido) {
 
 	for rows.Next() {
 		var p pedido.Pedido
-		err = rows.Scan(&p.Lanche, &p.Acompanhamento, &p.Bebida, &p.IdCliente, &p.NumPedido)
+		rows.Scan(&p.Lanche, &p.Acompanhamento, &p.Bebida, &p.IdCliente, &p.CodPedido)
 		pedidos = append(pedidos, p)
 	}
 	return pedidos
@@ -55,7 +55,7 @@ func CadastraCliente(cli cliente.Cliente) {
 		fmt.Println(conexaoAberta)
 	}
 	defer con.Close()
-	_, err = con.Exec(`INSERT INTO cliente VALUES ($1, $2, $3)`, cli.Nome, cli.Cpf, cli.Senha)
+	_, err = con.Exec(`INSERT INTO clientes VALUES ($1, $2, $3)`, cli.Nome, cli.Cpf, cli.Senha)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -69,7 +69,7 @@ func DadosCliente(cli cliente.Cliente) (dadosCliente []cliente.Cliente) {
 		fmt.Println(conexaoAberta)
 	}
 	defer con.Close()
-	rows, err := con.Query(`SELECT cpf, senha FROM cliente`)
+	rows, err := con.Query(`SELECT cpf, senha FROM clientes`)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -77,7 +77,7 @@ func DadosCliente(cli cliente.Cliente) (dadosCliente []cliente.Cliente) {
 
 	for rows.Next() {
 		var c cliente.Cliente
-		err = rows.Scan(&c.Cpf, &c.Senha)
+		rows.Scan(&c.Cpf, &c.Senha)
 		dadosCliente = append(dadosCliente, c)
 	}
 	return dadosCliente
@@ -91,7 +91,7 @@ func CadastraProduto(p produto.Produto) {
 		fmt.Println(conexaoAberta)
 	}
 	defer con.Close()
-	_, err = con.Exec(`INSERT INTO produtos VALUES ($1, $2, $3, $4, $5)`, p.Id, p.Nome, p.Valor, p.Categoria, p.Descricao)
+	_, err = con.Exec(`INSERT INTO produtos VALUES ($1, $2, $3, $4, $5)`, p.Nome, p.Valor, p.Categoria, p.Descricao, p.Id)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -141,8 +141,22 @@ func ConsultaProdutoPorCategoria(cat string) (prod []produto.Produto) {
 
 	for rows.Next() {
 		var p produto.Produto
-		err = rows.Scan(&p.Id, &p.Nome, &p.Valor, &p.Descricao, &p.Categoria)
+		rows.Scan(&p.Id, &p.Nome, &p.Valor, &p.Descricao, &p.Categoria)
 		prod = append(prod, p)
 	}
 	return prod
+}
+
+func CriaPedido(p pedido.Pedido) {
+	con, err := OpenConnection()
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(conexaoAberta)
+	}
+	defer con.Close()
+	_, err = con.Exec(`INSERT INTO pedidos VALUES ($1, $2, $3, $4, $5, $6)`, p.IdCliente, p.Lanche, p.Acompanhamento, p.Bebida, p.Status, p.CodPedido)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
