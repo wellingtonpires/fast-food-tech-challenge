@@ -19,7 +19,7 @@ func Cadastro(c *gin.Context) {
 		fmt.Println(err.Error())
 	}
 	persistence.CadastraProduto(prod)
-	c.IndentedJSON(http.StatusCreated, gin.H{"message": "Produto criado!"})
+	c.IndentedJSON(http.StatusCreated, gin.H{"resultado": "Produto criado"})
 }
 
 func Atualizacao(c *gin.Context) {
@@ -29,7 +29,7 @@ func Atualizacao(c *gin.Context) {
 		fmt.Println(err.Error())
 	}
 	persistence.AtualizaProduto(prod)
-	c.IndentedJSON(http.StatusOK, gin.H{"message": "Produto atualizado!"})
+	c.IndentedJSON(http.StatusOK, gin.H{"resultado": "Produto atualizado"})
 }
 
 func Exclusao(c *gin.Context) {
@@ -39,7 +39,7 @@ func Exclusao(c *gin.Context) {
 		fmt.Println(err.Error())
 	}
 	persistence.ExcluiProduto(prod)
-	c.IndentedJSON(http.StatusOK, gin.H{"message": "Produto deletado!"})
+	c.IndentedJSON(http.StatusOK, gin.H{"resultado": "Produto deletado"})
 }
 
 func ConsultaCategoria(c *gin.Context) {
@@ -55,7 +55,7 @@ func NovoPedido(c *gin.Context) {
 		fmt.Println(err.Error())
 	}
 	pedido.CodPedido = string([]rune(charset)[rand.Intn(26)]) + string([]rune(charset)[rand.Intn(26)]) + string([]rune(charset)[rand.Intn(26)]) + strconv.Itoa(rand.Intn(1000))
-	pedido.Status = "Em espera"
+	pedido.Status = "Aguardando pagamento"
 	persistence.CriaPedido(pedido)
-	c.IndentedJSON(http.StatusCreated, gin.H{"message": "Pedido criado!"})
+	c.IndentedJSON(http.StatusCreated, gin.H{"resultado": "Pedido criado", "codPedido": pedido.CodPedido})
 }

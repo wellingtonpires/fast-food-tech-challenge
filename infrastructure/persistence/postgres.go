@@ -61,7 +61,7 @@ func CadastraCliente(cli cliente.Cliente) {
 	}
 }
 
-func DadosCliente(cli cliente.Cliente) (dadosCliente []cliente.Cliente) {
+func DadosCliente() (dadosCliente []cliente.Cliente) {
 	con, err := OpenConnection()
 	if err != nil {
 		fmt.Println(err.Error())
@@ -81,6 +81,28 @@ func DadosCliente(cli cliente.Cliente) (dadosCliente []cliente.Cliente) {
 		dadosCliente = append(dadosCliente, c)
 	}
 	return dadosCliente
+}
+
+func DadosPedido(d pedido.Pedido) (dadosPedido pedido.Pedido) {
+	con, err := OpenConnection()
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(conexaoAberta)
+	}
+	defer con.Close()
+	rows, err := con.Query(`SELECT * FROM pedidos WHERE codPedido = $1`, d.CodPedido)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var p pedido.Pedido
+		rows.Scan(&p.IdCliente, &p.Lanche, &p.Acompanhamento, &p.Bebida, &p.Status, &p.CodPedido)
+		dadosPedido = p
+	}
+	return dadosPedido
 }
 
 func CadastraProduto(p produto.Produto) {
@@ -156,6 +178,20 @@ func CriaPedido(p pedido.Pedido) {
 	}
 	defer con.Close()
 	_, err = con.Exec(`INSERT INTO pedidos VALUES ($1, $2, $3, $4, $5, $6)`, p.IdCliente, p.Lanche, p.Acompanhamento, p.Bebida, p.Status, p.CodPedido)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func ConfirmaPagamento(p pedido.Pedido) {
+	con, err := OpenConnection()
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(conexaoAberta)
+	}
+	defer con.Close()
+	_, err = con.Exec(`UPDATE pedidos SET idcliente = $1, lanche = $2, acompanhamento = $3, bebida = $4, status = $5, codpedido = $6 WHERE codpedido = $6;`, p.IdCliente, p.Lanche, p.Acompanhamento, p.Bebida, p.Status, p.CodPedido)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
