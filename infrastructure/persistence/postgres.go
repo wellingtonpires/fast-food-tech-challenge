@@ -41,7 +41,7 @@ func BuscaPedidos() (pedidos []pedido.Pedido) {
 
 	for rows.Next() {
 		var p pedido.Pedido
-		rows.Scan(&p.Lanche, &p.Acompanhamento, &p.Bebida, &p.IdCliente, &p.CodPedido)
+		rows.Scan(&p.Lanche, &p.Acompanhamento, &p.Bebida, &p.Status, &p.CodPedido, &p.IdCliente)
 		pedidos = append(pedidos, p)
 	}
 	return pedidos
@@ -83,28 +83,6 @@ func DadosCliente() (dadosCliente []cliente.Cliente) {
 	return dadosCliente
 }
 
-func DadosPedido(d pedido.Pedido) (dadosPedido pedido.Pedido) {
-	con, err := OpenConnection()
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Println(conexaoAberta)
-	}
-	defer con.Close()
-	rows, err := con.Query(`SELECT * FROM pedidos WHERE codPedido = $1`, d.CodPedido)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		var p pedido.Pedido
-		rows.Scan(&p.IdCliente, &p.Lanche, &p.Acompanhamento, &p.Bebida, &p.Status, &p.CodPedido)
-		dadosPedido = p
-	}
-	return dadosPedido
-}
-
 func CadastraProduto(p produto.Produto) {
 	con, err := OpenConnection()
 	if err != nil {
@@ -127,7 +105,7 @@ func AtualizaProduto(p produto.Produto) {
 		fmt.Println(conexaoAberta)
 	}
 	defer con.Close()
-	_, err = con.Exec(`UPDATE produtos SET nome = $1, valor = $2, categoria = $3, descricao = $4 WHERE id = $5;`, p.Nome, p.Valor, p.Categoria, p.Descricao, p.Id)
+	_, err = con.Exec(`UPDATE produtos SET nome = $1, valor = $2, categoria = $3, descricao = $4 WHERE id = $5`, p.Nome, p.Valor, p.Categoria, p.Descricao, p.Id)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -163,7 +141,7 @@ func ConsultaProdutoPorCategoria(cat string) (prod []produto.Produto) {
 
 	for rows.Next() {
 		var p produto.Produto
-		rows.Scan(&p.Id, &p.Nome, &p.Valor, &p.Descricao, &p.Categoria)
+		rows.Scan(&p.Nome, &p.Valor, &p.Categoria, &p.Descricao, &p.Id)
 		prod = append(prod, p)
 	}
 	return prod
@@ -191,7 +169,8 @@ func ConfirmaPagamento(p pedido.Pedido) {
 		fmt.Println(conexaoAberta)
 	}
 	defer con.Close()
-	_, err = con.Exec(`UPDATE pedidos SET idcliente = $1, lanche = $2, acompanhamento = $3, bebida = $4, status = $5, codpedido = $6 WHERE codpedido = $6;`, p.IdCliente, p.Lanche, p.Acompanhamento, p.Bebida, p.Status, p.CodPedido)
+	fmt.Println(p.Status, p.CodPedido)
+	_, err = con.Exec(`UPDATE pedidos SET statusatual = $1 WHERE codpedido = $2`, p.Status, p.CodPedido)
 	if err != nil {
 		fmt.Println(err.Error())
 	}

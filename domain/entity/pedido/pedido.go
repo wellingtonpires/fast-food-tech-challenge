@@ -5,6 +5,6 @@ type Pedido struct {
 	Acompanhamento string `json:"acompanhamento"`
 	Bebida         string `json:"bebida"`
 	Status         string `json:"status"`
-	IdCliente      string `json: "idcliente"`
-	CodPedido      string `json: "codpedido"`
+	CodPedido      string `json:"codpedido"`
+	IdCliente      string `json:"idcliente"`
 }
