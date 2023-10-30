@@ -1,9 +1,0 @@
-TABELA PRODUTOS
-CREATE TABLE produtos(nome VARCHAR(50), valor REAL, categoria VARCHAR(50), descricao VARCHAR(200), id VARCHAR(50));
-
-TABELA CLIENTES
-CREATE TABLE clientes(nome VARCHAR(50), cpf VARCHAR(11), senha VARCHAR(50), id SERIAL);
-
-TABELA PEDIDOS
-CREATE TABLE pedidos(idcliente VARCHAR(50), lanche VARCHAR(50), acompanhamento VARCHAR(50), bebida VARCHAR(50), status VARCHAR(20), codpedido VARCHAR(50));
-

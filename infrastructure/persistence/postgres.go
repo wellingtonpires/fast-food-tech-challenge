@@ -13,7 +13,7 @@ import (
 const conexaoAberta = "Conexáo aberta com o banco!"
 
 func OpenConnection() (*sql.DB, error) {
-	db, err := sql.Open("postgres", "host=localhost port=5432 user=postgres password=123 dbname=postgres sslmode=disable")
+	db, err := sql.Open("postgres", "postgresql://postgres:123@dbfastfood:5432/postgres?sslmode=disable")
 	if err != nil {
 		panic(err)
 	} else {
@@ -177,7 +177,7 @@ func CriaPedido(p pedido.Pedido) {
 		fmt.Println(conexaoAberta)
 	}
 	defer con.Close()
-	_, err = con.Exec(`INSERT INTO pedidos VALUES ($1, $2, $3, $4, $5, $6)`, p.IdCliente, p.Lanche, p.Acompanhamento, p.Bebida, p.Status, p.CodPedido)
+	_, err = con.Exec(`INSERT INTO pedidos VALUES ($1, $2, $3, $4, $5, $6)`, p.Lanche, p.Acompanhamento, p.Bebida, p.Status, p.CodPedido, p.IdCliente)
 	if err != nil {
 		fmt.Println(err.Error())
 	}

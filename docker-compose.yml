@@ -1,0 +1,26 @@
+networks:
+  fastfoodnetwork:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres
+    container_name: dbfastfood
+    restart: unless-stopped
+    volumes:
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+    environment:
+      POSTGRES_PASSWORD: "123"
+    ports:
+      - "5432:5432"
+    networks:
+      - fastfoodnetwork
+
+  fastfoodapp:
+    image: golang:1.21
+    ports:
+      - "8080:8080"
+    build:
+      dockerfile: ./Dockerfile
+    networks:
+      - fastfoodnetwork
