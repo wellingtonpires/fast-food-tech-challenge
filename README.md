@@ -11,3 +11,6 @@ Na pasta raiz existe o arquivo Testes-FASE-1.postman_collection.json com chamada
 
 ### Documentação DDD - Miro
 https://miro.com/app/board/uXjVNZqJmc0=/?share_link_id=344727336283
+
+### Link do projeto - Github
+https://github.com/wellingtonpires/fast-food-tech-challenge
