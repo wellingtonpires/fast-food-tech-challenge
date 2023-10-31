@@ -1,8 +1,4 @@
-Wellington de Souza Pires - 4SOAT - RM350887
-
 # Tech Challenge FIAP Fase 1
-
----
 
 ### Como implementar:
 Executar o script buildAndDeploy.sh ou docker compose build + docker compose up.
@@ -16,3 +12,7 @@ Na pasta raiz existe o arquivo Testes-FASE-1.postman_collection.json com chamada
 
 ### Documentação DDD - Miro
 https://miro.com/app/board/uXjVNZqJmc0=/?share_link_id=344727336283
+
+---
+
+Wellington de Souza Pires - 4SOAT - RM350887
