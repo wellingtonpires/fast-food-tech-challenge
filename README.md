@@ -1,7 +1,7 @@
 # Tech Challenge FIAP Fase 1 - Fast Food :hamburger:
 
 ### Como implementar:
-Executar o script buildAndDeploy.sh ou docker compose build + docker compose up.
+Executar o script _buildAndDeploy.sh_ ou _docker compose build && docker compose up_.
 
 ### Como testar:
 Na pasta raiz existe o arquivo Testes-FASE-1.postman_collection.json com chamadas prontas para todas as APIS.
@@ -13,4 +13,4 @@ https://miro.com/app/board/uXjVNZqJmc0=/?share_link_id=344727336283
 
 ---
 
-Wellington de Souza Pires - 4SOAT - RM350887
+_Wellington de Souza Pires - 4SOAT - RM350887_
