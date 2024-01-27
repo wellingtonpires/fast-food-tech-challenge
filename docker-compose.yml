@@ -17,10 +17,8 @@ services:
       - fastfoodnetwork
 
   fastfoodapp:
-    image: golang:1.21
+    image: wellingt0npires/fastfood:latest
     ports:
       - "8080:8080"
-    build:
-      dockerfile: ./Dockerfile
     networks:
       - fastfoodnetwork

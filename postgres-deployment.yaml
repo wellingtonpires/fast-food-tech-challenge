@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: ./kompose convert
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: postgres
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: postgres
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: ./kompose convert
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/fast-food-tech-challenge-fastfoodnetwork: "true"
+        io.kompose.service: postgres
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_PASSWORD
+              value: "123"
+          image: postgres
+          name: dbfastfood
+          ports:
+            - containerPort: 5432
+              hostPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d
+              name: postgres-initdb
+            - mountPath: "/var/lib/postgres"
+              name: postgres-claim0
+      restartPolicy: Always
+      volumes:
+        - name: postgres-initdb
+          configMap:
+            name: postgres-initdb-config
+        - name: postgres-claim0
+          persistentVolumeClaim:
+            claimName: postgres-claim0

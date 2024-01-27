@@ -13,7 +13,7 @@ import (
 const conexaoAberta = "Conexáo aberta com o banco!"
 
 func OpenConnection() (*sql.DB, error) {
-	db, err := sql.Open("postgres", "postgresql://postgres:123@dbfastfood:5432/postgres?sslmode=disable")
+	db, err := sql.Open("postgres", "postgresql://postgres:123@postgres:5432/postgres?sslmode=disable")
 	if err != nil {
 		panic(err)
 	} else {
@@ -41,10 +41,32 @@ func BuscaPedidos() (pedidos []pedido.Pedido) {
 
 	for rows.Next() {
 		var p pedido.Pedido
-		rows.Scan(&p.Lanche, &p.Acompanhamento, &p.Bebida, &p.Status, &p.CodPedido, &p.IdCliente)
+		rows.Scan(&p.Lanche, &p.Acompanhamento, &p.Bebida, &p.StatusPagamento, &p.StatusPreparacao, &p.CodPedido, &p.IdCliente)
 		pedidos = append(pedidos, p)
 	}
 	return pedidos
+}
+
+func ConsultaStatusPedido(codPedido string) (statusPedido pedido.Pedido) {
+	con, err := OpenConnection()
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(conexaoAberta)
+	}
+	defer con.Close()
+	rows, err := con.Query(`SELECT statuspagamento FROM pedidos WHERE codpedido=$1`, codPedido)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var p pedido.Pedido
+		rows.Scan(&p.StatusPagamento)
+		statusPedido = p
+	}
+	return statusPedido
 }
 
 func CadastraCliente(cli cliente.Cliente) {
@@ -155,7 +177,7 @@ func CriaPedido(p pedido.Pedido) {
 		fmt.Println(conexaoAberta)
 	}
 	defer con.Close()
-	_, err = con.Exec(`INSERT INTO pedidos VALUES ($1, $2, $3, $4, $5, $6)`, p.Lanche, p.Acompanhamento, p.Bebida, p.Status, p.CodPedido, p.IdCliente)
+	_, err = con.Exec(`INSERT INTO pedidos VALUES ($1, $2, $3, $4, $5, $6, $7)`, p.Lanche, p.Acompanhamento, p.Bebida, p.StatusPagamento, p.StatusPreparacao, p.CodPedido, p.IdCliente)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -169,8 +191,8 @@ func ConfirmaPagamento(p pedido.Pedido) {
 		fmt.Println(conexaoAberta)
 	}
 	defer con.Close()
-	fmt.Println(p.Status, p.CodPedido)
-	_, err = con.Exec(`UPDATE pedidos SET statusatual = $1 WHERE codpedido = $2`, p.Status, p.CodPedido)
+	fmt.Println(p.StatusPagamento, p.CodPedido)
+	_, err = con.Exec(`UPDATE pedidos SET statuspagamento = $1, statuspreparacao = $2 WHERE codpedido = $3`, p.StatusPagamento, p.StatusPreparacao, p.CodPedido)
 	if err != nil {
 		fmt.Println(err.Error())
 	}

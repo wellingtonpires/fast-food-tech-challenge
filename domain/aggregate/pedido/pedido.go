@@ -47,6 +47,11 @@ func ConsultaCategoria(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, persistence.ConsultaProdutoPorCategoria(categoria))
 }
 
+func ConsultaPagamento(c *gin.Context) {
+	codPedido := c.Query("codigopedido")
+	c.IndentedJSON(http.StatusOK, persistence.ConsultaStatusPedido(codPedido))
+}
+
 func NovoPedido(c *gin.Context) {
 	const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	var pedido pedido.Pedido
@@ -55,7 +60,8 @@ func NovoPedido(c *gin.Context) {
 		fmt.Println(err.Error())
 	}
 	pedido.CodPedido = string([]rune(charset)[rand.Intn(26)]) + string([]rune(charset)[rand.Intn(26)]) + string([]rune(charset)[rand.Intn(26)]) + strconv.Itoa(rand.Intn(1000))
-	pedido.Status = "Aguardando pagamento"
+	pedido.StatusPagamento = "Aguardando pagamento"
+	pedido.StatusPreparacao = ""
 	persistence.CriaPedido(pedido)
 	c.IndentedJSON(http.StatusCreated, gin.H{"resultado": "Pedido criado", "codPedido": pedido.CodPedido})
 }

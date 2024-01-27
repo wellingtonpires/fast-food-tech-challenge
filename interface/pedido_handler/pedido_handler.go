@@ -12,4 +12,5 @@ func Routes(route *gin.Engine) {
 	p.DELETE("/exclui-menu", pedido.Exclusao)
 	p.GET("/consulta", pedido.ConsultaCategoria)
 	p.POST("/novo-pedido", pedido.NovoPedido)
+	p.GET("/consulta-pagamento", pedido.ConsultaPagamento)
 }

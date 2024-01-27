@@ -15,8 +15,8 @@ func Confirmacao(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	pedido.Status = "Em preparação"
-
+	pedido.StatusPagamento = "Pagamento aprovado"
+	pedido.StatusPreparacao = "Em preparação"
 	persistence.ConfirmaPagamento(pedido)
 	c.IndentedJSON(http.StatusOK, gin.H{"resultado": "Pedido pago com sucesso", "codPedido": pedido.CodPedido})
 }
