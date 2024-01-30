@@ -22,16 +22,16 @@ Na pasta raiz existe o arquivo **Testes-FASE-2.postman_collection.json** com cha
 
 ### Descrição das APIs envolvidas na Fase 2:
 
-`/pedido/novo-pedido`
+`/pedido/novo-pedido`  
 _Checkout do pedido retornando um código de identificação_
 
-`/pagamento/confirmacao`
+`/pagamento/confirmacao`  
 _Atualiza o status de pagamento e em caso de sucesso no pagamento, o status do pedido passa para "Em preparação"_
 
-`/pedido/consulta-pagamento?codigopedido={codigopedido}`
+`/pedido/consulta-pagamento?codigopedido={codigopedido}`  
 _Consulta o status do pagamento de um pedido_
 
-`/listapedidos/todos`
+`/listapedidos/todos`  
 _Lista todos os pedidos realizados_
 
 ---
