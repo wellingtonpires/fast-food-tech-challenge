@@ -35,6 +35,7 @@ _Consulta o status do pagamento de um pedido_
 _Lista todos os pedidos realizados_
 
 
+---
 
   
 ## Fase 1
