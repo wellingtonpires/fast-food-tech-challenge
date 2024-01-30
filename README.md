@@ -5,9 +5,9 @@
 ## Fase 2
 
 ### Pré requisitos:
-kubectl v1.29.0
-minikube v1.32.0
-go 1.21.3
+⋅⋅* kubectl v1.29.0
+⋅⋅* minikube v1.32.0
+⋅⋅* go 1.21.3
 
 ### Como implementar:
 Executar o script **buildAndDeploy_FASE2.sh**
