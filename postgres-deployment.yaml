@@ -29,6 +29,10 @@ spec:
               value: "123"
           image: postgres
           name: dbfastfood
+          resources:
+            requests:
+              cpu: 100m
+              memory: 500Mi
           ports:
             - containerPort: 5432
               hostPort: 5432
