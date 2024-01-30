@@ -34,8 +34,9 @@ _Consulta o status do pagamento de um pedido_
 `/listapedidos/todos`  
 _Lista todos os pedidos realizados_
 
----
 
+
+  
 ## Fase 1
 
 ### Como implementar:
