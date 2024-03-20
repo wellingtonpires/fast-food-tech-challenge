@@ -1,5 +1,9 @@
 # Tech Challenge FIAP - Fast Food :hamburger:
 
+## Fase 3
+
+Projeto migrado para AWS. Para testar, utilizar a collection **Testes-FASE-3.postman_collection.json**
+
 ## Fase 2
 
 ### Pré requisitos:
