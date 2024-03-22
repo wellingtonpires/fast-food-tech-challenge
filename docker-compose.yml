@@ -19,6 +19,6 @@ services:
   fastfoodapp:
     image: wellingt0npires/fastfood:latest
     ports:
-      - "8080:8080"
+      - "4000:8080"
     networks:
       - fastfoodnetwork

@@ -21,12 +21,12 @@ spec:
         io.kompose.network/fast-food-tech-challenge-fastfoodnetwork: "true"
         io.kompose.service: fastfoodapp
     spec:
+      hostNetwork: true
       containers:
         - image: wellingt0npires/fastfood:latest
           name: fastfoodapp
           ports:
-            - containerPort: 8080
-              hostPort: 8080
+            - containerPort: 10020
               protocol: TCP
           resources:
             requests:
