@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "396cbcea-7c06-4bc9-b023-6afea0311a8f",
+		"name": "Tech Challenge Fast Food - FASE 3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30665392"
+	},
+	"item": [
+		{
+			"name": "Cadastro Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Fulano de Tal\",\r\n    \"senha\": \"SenhaQualquer123\",\r\n    \"cpf\": \"55501215650\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/identificacao/cadastro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"identificacao",
+						"cadastro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"senha\": \"SenhaQualquer123\",\r\n    \"cpf\": \"55501215650\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/identificacao/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"identificacao",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cadastro Produtos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"LANCHE001\",\r\n    \"nome\": \"Hamburguer\",\r\n    \"valor\": 29.99,\r\n    \"categoria\": \"LANCHE\",\r\n    \"descricao\": \"Hamburguer com carne de 160g\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pedido/cadastra-menu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedido",
+						"cadastra-menu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta Produto Por Categoria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pedido/consulta?categoria=LANCHE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedido",
+						"consulta"
+					],
+					"query": [
+						{
+							"key": "categoria",
+							"value": "LANCHE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta Pagamento Pedido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pedido/consulta-pagamento?codigopedido=HXB623",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedido",
+						"consulta-pagamento"
+					],
+					"query": [
+						{
+							"key": "codigopedido",
+							"value": "HXB623"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza Produtos",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"LANCHE001\", /* Elemento identificador para alteração */\r\n    \"nome\": \"Hamburguer\",\r\n    \"valor\": 39.99,\r\n    \"categoria\": \"LANCHE\",\r\n    \"descricao\": \"Hamburguer com carne de 160g, queijo, alface e tomate\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pedido/atualiza-menu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedido",
+						"atualiza-menu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta Produtos",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"LANCHE001\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pedido/exclui-menu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedido",
+						"exclui-menu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Novo pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"lanche\": \"Hamburguer\",\r\n    \"acompanhamento\": \"Batata Frita\",\r\n    \"bebida\": \"Suco de uva\",\r\n    \"idcliente\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pedido/novo-pedido",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedido",
+						"novo-pedido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista Pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/listapedidos/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"listapedidos",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirma pagamento",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codPedido\": \"NBG490\" /* DEVE SER PREENCHIDO COM O CODIGO GERADO PARA O PEDIDO (codpedido) */\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pagamento/confirmacao",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pagamento",
+						"confirmacao"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
